@@ -1,0 +1,30 @@
+{
+  "name": "fivebyfive",
+  "version": "1.0.0",
+  "description": "Five by Five workout tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "esbuild src/index.js --bundle --loader:.js=jsx --outfile=bundle.js --servedir=. --serve=3030",
+    "build": "esbuild src/index.js --bundle --minify --loader:.js=jsx --define:process.env.NODE_ENV=\"'production'\" --outfile=bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JamesFHeath/FiveByFive.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/JamesFHeath/FiveByFive/issues"
+  },
+  "homepage": "https://github.com/JamesFHeath/FiveByFive#readme",
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.1"
+  }
+}
