@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "esbuild src/index.js --bundle --loader:.js=jsx --outfile=bundle.js --servedir=. --serve=3030",
-    "build": "esbuild src/index.js --bundle --minify --loader:.js=jsx --define:process.env.NODE_ENV=\"'production'\" --outfile=bundle.js"
+    "dev": "esbuild src/index.js --bundle --loader:.js=jsx --loader:.wasm=file --outfile=bundle.js --servedir=. --serve=3030",
+    "build": "esbuild src/index.js --bundle --minify --loader:.js=jsx --loader:.wasm=file --define:process.env.NODE_ENV=\"'production'\" --outfile=bundle.js"
   },
   "repository": {
     "type": "git",
