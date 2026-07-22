@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { initDB, saveDatabase } from "./db.js";
 import { createRoot } from "react-dom/client";
+import { initDB, loadDatabaseFromFile, downloadDatabase } from "./db.js";
+import Tabs from "./tabs.js";
 import "./styles.css";
 
 function App() {
@@ -19,24 +20,37 @@ function App() {
       });
   }, []);
 
-  const addWorkout = async () => {
-    db.exec({
-      sql: "INSERT INTO workouts (date, exercise, weight, reps) VALUES (?, ?, ?, ?)",
-      bind: ["2023-10-25", "Bench Press", 135, 10],
-    });
-
-    await saveDatabase();
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const database = await loadDatabaseFromFile(file);
+    setDb(database);
+    e.target.value = "";
   };
 
-  if (loading) {
-    return <p>Loading database...</p>;
-  }
-  if (!db) {
-    return <p>Error loading database. Are you in private browsing mode?</p>;
-  }
+  if (loading) return <p>Loading database...</p>;
+  if (!db) return <p>Error loading database.</p>;
 
-  return <h1>Five by Five!</h1>;
+  return (
+    <div>
+      <h1 style={{ textAlign: "center", fontFamily: "sans-serif" }}>
+        Five by Five
+      </h1>
+      <div style={{ textAlign: "center", marginBottom: 20 }}>
+        <button onClick={() => downloadDatabase()}>Download DB</button>
+        <label style={{ marginLeft: 10, cursor: "pointer" }}>
+          Upload DB
+          <input
+            type="file"
+            accept=".sqlite3,.db,.sqlite"
+            onChange={handleUpload}
+            style={{ display: "none" }}
+          />
+        </label>
+      </div>
+      <Tabs db={db} />
+    </div>
+  );
 }
 
-const root = createRoot(document.getElementById("react-root"));
-root.render(<App />);
+createRoot(document.getElementById("react-root")).render(<App />);
