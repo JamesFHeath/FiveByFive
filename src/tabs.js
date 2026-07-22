@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import LogWorkout from "./logworkout.js";
 import Workouts from "./workouts.js";
+import Settings from "./settings.js";
 
 export default function Tabs({ db }) {
   const [activeTab, setActiveTab] = useState("log");
@@ -59,12 +60,7 @@ export default function Tabs({ db }) {
 
         {activeTab === "workouts" && <Workouts db={db} />}
 
-        {activeTab === "settings" && (
-          <div>
-            <h2>Settings</h2>
-            <p>Add additonal workout types</p>
-          </div>
-        )}
+        {activeTab === "settings" && <Settings db={db} />}
       </div>
     </div>
   );

@@ -71,8 +71,8 @@ export default function Workouts({ db }) {
               </tr>
             </thead>
             <tbody>
-              {results.map((row, idx) => (
-                <tr key={idx}>
+              {results.map((row) => (
+                <tr key={row.id}>
                   {columns.map((col) => (
                     <td
                       key={col}

@@ -45,8 +45,6 @@ export default function LogWorkout({ db, onSaved }) {
 
   return (
     <div>
-      <h2>Log a New Set</h2>
-
       <div className="form-row">
         <label>Date</label>
         <input
