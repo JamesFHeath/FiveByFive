@@ -42,7 +42,7 @@ export default function RawData({ db }) {
 
   return (
     <div>
-      <h2>Raw Data Query</h2>
+      <h2>Query workout and workout_types</h2>
       <textarea
         value={query}
         onChange={(e) => setQuery(e.target.value)}

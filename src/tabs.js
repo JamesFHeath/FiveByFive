@@ -33,6 +33,12 @@ export default function Tabs({ db }) {
         >
           Raw Data
         </button>
+        <button
+          className={activeTab === "settings" ? "active" : ""}
+          onClick={() => setActiveTab("settings")}
+        >
+          Settings
+        </button>
       </div>
 
       <div className="tab-content">
@@ -53,6 +59,13 @@ export default function Tabs({ db }) {
         )}
 
         {activeTab === "raw" && <RawData db={db} />}
+
+        {activeTab === "settings" && (
+          <div>
+            <h2>Settings</h2>
+            <p>Add additonal workout types</p>
+          </div>
+        )}
       </div>
     </div>
   );

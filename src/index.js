@@ -37,9 +37,9 @@ function App() {
         Five by Five
       </h1>
       <div style={{ textAlign: "center", marginBottom: 20 }}>
-        <button onClick={() => downloadDatabase()}>Download DB</button>
+        <button onClick={() => downloadDatabase()}>Download Data</button>
         <label style={{ marginLeft: 10, cursor: "pointer" }}>
-          Upload DB
+          Upload Data
           <input
             type="file"
             accept=".sqlite3,.db,.sqlite"
