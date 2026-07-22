@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 
 function today() {
-  return new Date().toISOString().split("T")[0];
+  const d = new Date();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${d.getFullYear()}-${month}-${day}`;
 }
 
 export default function LogWorkout({ db, onSaved }) {

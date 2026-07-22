@@ -1,21 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function RawData({ db }) {
-  const [query, setQuery] = useState("SELECT * FROM workouts LIMIT 10;");
+export default function Workouts({ db }) {
   const [results, setResults] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
 
-  const runQuery = async () => {
-    setMessage("");
-    setIsError(false);
+  const deleteRow = (id) => {
+    if (!db) return;
+    try {
+      db.exec({
+        sql: "DELETE FROM workouts WHERE id = ?;",
+        bind: [id],
+      });
+      runQuery("SELECT * FROM workouts ORDER BY date DESC");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const runQuery = async (query) => {
     setResults([]);
     setColumns([]);
 
     if (!db) {
-      setMessage("Database not loaded.");
-      setIsError(true);
       return;
     }
 
@@ -29,54 +35,18 @@ export default function RawData({ db }) {
       if (rows && rows.length > 0) {
         setResults(rows);
         setColumns(Object.keys(rows[0]));
-        setMessage(`Returned ${rows.length} row(s).`);
-      } else {
-        setMessage("Query executed successfully (0 rows returned).");
       }
-
     } catch (err) {
-      setMessage(`SQL Error: ${err.message}`);
-      setIsError(true);
+      console.error(err);
     }
   };
 
+  useEffect(() => {
+    runQuery("SELECT * FROM workouts ORDER BY date DESC");
+  }, [db]);
+
   return (
     <div>
-      <h2>Query workout and workout_types</h2>
-      <textarea
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        rows={4}
-        style={{
-          width: "100%",
-          fontFamily: "monospace",
-          padding: "10px",
-          marginBottom: "10px",
-          boxSizing: "border-box",
-        }}
-      />
-      <button
-        onClick={runQuery}
-        style={{ padding: "8px 16px", cursor: "pointer" }}
-      >
-        Execute Query
-      </button>
-
-      {/* Status Message */}
-      {message && (
-        <div
-          style={{
-            marginTop: "15px",
-            padding: "10px",
-            backgroundColor: isError ? "#ffebee" : "#e8f5e9",
-            color: isError ? "#c62828" : "#2e7d32",
-            borderRadius: "4px",
-          }}
-        >
-          {message}
-        </div>
-      )}
-
       {/* Dynamic Results Table */}
       {results.length > 0 && (
         <div style={{ overflowX: "auto", marginTop: "20px" }}>
@@ -97,6 +67,7 @@ export default function RawData({ db }) {
                     {col}
                   </th>
                 ))}
+                <th style={{ border: "1px solid #ccc", padding: "8px" }}></th>
               </tr>
             </thead>
             <tbody>
@@ -110,6 +81,26 @@ export default function RawData({ db }) {
                       {row[col] !== null ? String(row[col]) : "NULL"}
                     </td>
                   ))}
+                  <td
+                    style={{
+                      border: "1px solid #eee",
+                      padding: "8px",
+                      textAlign: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => deleteRow(row.id)}
+                      style={{
+                        cursor: "pointer",
+                        border: "none",
+                        background: "none",
+                        color: "#c62828",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      X
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

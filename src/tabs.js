@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import LogWorkout from "./logworkout.js";
-import RawData from "./rawdata.js";
+import Workouts from "./workouts.js";
 
 export default function Tabs({ db }) {
   const [activeTab, setActiveTab] = useState("log");
@@ -28,10 +28,10 @@ export default function Tabs({ db }) {
           Stats
         </button>
         <button
-          className={activeTab === "raw" ? "active" : ""}
-          onClick={() => setActiveTab("raw")}
+          className={activeTab === "workouts" ? "active" : ""}
+          onClick={() => setActiveTab("workouts")}
         >
-          Raw Data
+          Workouts
         </button>
         <button
           className={activeTab === "settings" ? "active" : ""}
@@ -44,10 +44,9 @@ export default function Tabs({ db }) {
       <div className="tab-content">
         {activeTab === "log" && <LogWorkout db={db} />}
 
-        {activeTab === "history" && (
+        {activeTab === "visualization" && (
           <div>
-            <h2>Workout History</h2>
-            <p>Your previous workouts will load from SQLite here.</p>
+            <h2>Visualization</h2>
           </div>
         )}
 
@@ -58,7 +57,7 @@ export default function Tabs({ db }) {
           </div>
         )}
 
-        {activeTab === "raw" && <RawData db={db} />}
+        {activeTab === "workouts" && <Workouts db={db} />}
 
         {activeTab === "settings" && (
           <div>
