@@ -46,7 +46,6 @@ export default function Visualizations({ db }) {
         returnValue: "resultRows",
       });
       setWorkouts(rows);
-      console.log(rows);
     } catch (err) {
       console.error(err);
     }

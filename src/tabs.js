@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import LogWorkout from "./logworkout.js";
 import Settings from "./settings.js";
+import Stats from "./stats.js";
 import Visualizations from "./visualizations.js";
 import Workouts from "./workouts.js";
 
@@ -48,12 +49,7 @@ export default function Tabs({ db }) {
 
         {activeTab === "visualization" && <Visualizations db={db}/>}
 
-        {activeTab === "stats" && (
-          <div>
-            <h2>Personal Records</h2>
-            <p>Your 1-rep maxes will go here.</p>
-          </div>
-        )}
+        {activeTab === "stats" && <Stats db={db}/>}
 
         {activeTab === "workouts" && <Workouts db={db} />}
 
