@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 import LogWorkout from "./logworkout.js";
-import Workouts from "./workouts.js";
 import Settings from "./settings.js";
+import Visualizations from "./visualizations.js";
+import Workouts from "./workouts.js";
 
 export default function Tabs({ db }) {
   const [activeTab, setActiveTab] = useState("log");
@@ -45,11 +46,7 @@ export default function Tabs({ db }) {
       <div className="tab-content">
         {activeTab === "log" && <LogWorkout db={db} />}
 
-        {activeTab === "visualization" && (
-          <div>
-            <h2>Visualization</h2>
-          </div>
-        )}
+        {activeTab === "visualization" && <Visualizations db={db}/>}
 
         {activeTab === "stats" && (
           <div>

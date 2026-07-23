@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 export default function Workouts({ db }) {
   const [results, setResults] = useState([]);
   const [columns, setColumns] = useState([]);
+  const SELECT_QUERY =
+    "SELECT workouts.id, workouts.date, workout_types.name, workouts.sets, workouts.reps, workouts.weight FROM workouts JOIN workout_types ON workouts.type_id = workout_types.id ORDER BY workouts.date DESC";
 
   const deleteRow = (id) => {
     if (!db) return;
@@ -11,7 +13,7 @@ export default function Workouts({ db }) {
         sql: "DELETE FROM workouts WHERE id = ?;",
         bind: [id],
       });
-      runQuery("SELECT * FROM workouts ORDER BY date DESC");
+      runQuery(SELECT_QUERY);
     } catch (err) {
       console.error(err);
     }
@@ -42,7 +44,7 @@ export default function Workouts({ db }) {
   };
 
   useEffect(() => {
-    runQuery("SELECT * FROM workouts ORDER BY date DESC");
+    runQuery(SELECT_QUERY);
   }, [db]);
 
   return (
