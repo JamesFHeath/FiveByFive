@@ -21,10 +21,14 @@
   },
   "homepage": "https://github.com/JamesFHeath/FiveByFive#readme",
   "dependencies": {
+    "chart.js": "^4.5.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "esbuild": "^0.28.1"
+  },
+  "allowScripts": {
+    "chart.js@4.5.1": true
   }
 }
